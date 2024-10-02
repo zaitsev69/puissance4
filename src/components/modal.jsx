@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const GameSetupModal = () => {
+const GameSetupModal = ({ isModalOpen, setIsModalOpen }) => {
   const colors = [
     { value: "#ff0000", label: "Rouge" },
     { value: "#ffff00", label: "Jaune" },
@@ -13,7 +13,6 @@ const GameSetupModal = () => {
 
   const [numPlayers, setNumPlayers] = useState(1); // Par défaut 1 joueur
   const [playerColors, setPlayerColors] = useState(["#ff0000"]); // Rouge par défaut pour 1 joueur
-  const [isModalOpen, setIsModalOpen] = useState(true); // état de la modale
 
   // Met à jour la couleur des joueurs
   const handleColorChange = (index, color) => {
@@ -87,7 +86,7 @@ const GameSetupModal = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Joueur {index + 1} :
                   </label>
-                  <div className="flex space-x-4 my-4">
+                  <div className="flex space-x-4 my-4 justify-center">
                     {getAvailableColors(index).map((color) => (
                       <label key={color.value}>
                         <input
@@ -99,7 +98,7 @@ const GameSetupModal = () => {
                           className="sr-only" // Masque l'input radio natif
                         />
                         <div
-                          className={`w-10 h-10 rounded-full border-2 cursor-pointer ${
+                          className={`w-5 h-5 rounded-full border-2 cursor-pointer ${
                             playerColors[index] === color.value
                               ? "border-black"
                               : "border-transparent"
@@ -113,18 +112,12 @@ const GameSetupModal = () => {
               ))}
             </div>
             {/* Boutons */}
-            <div className="flex justify-between">
+            <div className="text-center">
               <button
                 onClick={startGame}
                 className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
               >
                 Jouer
-              </button>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-white text-black font-semibold border border-2 border-black shadow-md rounded-md hover:bg-gray-300"
-              >
-                Fermer
               </button>
             </div>
           </div>

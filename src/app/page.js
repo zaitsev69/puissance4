@@ -1,12 +1,19 @@
+"use client";
+
 import Header from "@/components/header";
-import Modal from "@/components/modal";
-import Image from "next/image";
+import GameSetupModal from "@/components/modal";
+import { useState } from "react";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(true);
   return (
     <div>
-      <Header />
-      <Modal />
+      <Header onRestart={() => setIsModalOpen(true)} />
+
+      <GameSetupModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }
