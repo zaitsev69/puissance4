@@ -7,7 +7,7 @@ function Header() {
         <div>Level:</div>
         <div>Score:</div>
       </div>
-      <button className="bg-white border border-black text-black px-4 py-2 rounded shadow-md uppercase hover:bg-blue-300">
+      <button className="bg-white border border-black text-black px-4 py-2 rounded shadow-md uppercase">
         Restart
       </button>
     </div>
