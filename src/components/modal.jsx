@@ -47,7 +47,7 @@ const GameSetupModal = () => {
   // Fonction pour démarrer le jeu
   const startGame = () => {
     alert(
-      `Le jeu commence avec ${numPlayers} joueur(s) et les couleurs ${playerColors
+      `Le jeu commence avec ${numPlayers} joueur(s) et la couleur ${playerColors
         .map((color) => colors.find((c) => c.value === color).label)
         .join(", ")}`
     );
@@ -58,10 +58,11 @@ const GameSetupModal = () => {
     <>
       {/* Afficher la modale si l'état isModalOpen est true */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-gray-300 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-2xl font-semibold mb-4">Configurer le jeu</h2>
-
+            <h2 className="text-center text-2xl font-semibold mb-4">
+              Configurer le jeu
+            </h2>
             {/* Choix du nombre de joueurs */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -76,7 +77,6 @@ const GameSetupModal = () => {
                 <option value={2}>2 joueurs</option>
               </select>
             </div>
-
             {/* Choix des couleurs des joueurs */}
             <div className="mb-4">
               <h3 className="text-lg font-medium mb-2">
@@ -87,7 +87,7 @@ const GameSetupModal = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Joueur {index + 1} :
                   </label>
-                  <div className="flex space-x-4">
+                  <div className="flex space-x-4 my-4">
                     {getAvailableColors(index).map((color) => (
                       <label key={color.value}>
                         <input
@@ -99,7 +99,7 @@ const GameSetupModal = () => {
                           className="sr-only" // Masque l'input radio natif
                         />
                         <div
-                          className={`w-10 h-10 rounded-full border-4 cursor-pointer ${
+                          className={`w-10 h-10 rounded-full border-2 cursor-pointer ${
                             playerColors[index] === color.value
                               ? "border-black"
                               : "border-transparent"
@@ -112,7 +112,6 @@ const GameSetupModal = () => {
                 </div>
               ))}
             </div>
-
             {/* Boutons */}
             <div className="flex justify-between">
               <button
@@ -123,7 +122,7 @@ const GameSetupModal = () => {
               </button>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-600"
+                className="px-4 py-2 bg-white text-black font-semibold border border-2 border-black shadow-md rounded-md hover:bg-gray-300"
               >
                 Fermer
               </button>
