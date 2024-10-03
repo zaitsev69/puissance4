@@ -49,7 +49,7 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
                     className="sr-only"
                   />
                   <div
-                    className={`w-5 h-5 rounded-full border-2 cursor-pointer ${
+                    className={`w-10 h-10 rounded-full border-2 cursor-pointer ${
                       playerColor === color.value
                         ? "border-black"
                         : "border-transparent"

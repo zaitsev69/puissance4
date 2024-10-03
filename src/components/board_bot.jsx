@@ -81,7 +81,7 @@ export default function Board_bot({ playerColor, botColor }) {
     return (
       <div
         key={col}
-        className={`w-12 h-12 border-2 border-gray-300 rounded-full flex justify-center items-center cursor-pointer`}
+        className={`w-20 h-20  rounded-full flex justify-center items-center cursor-pointer`}
         style={{
           backgroundColor:
             value === "Human"
@@ -107,7 +107,7 @@ export default function Board_bot({ playerColor, botColor }) {
           Current Player: <span className="font-bold">{currentPlayer}</span>
         </h2>
       )}
-      <div className="grid grid-cols-7 grid-rows-6 gap-2">
+      <div className="grid grid-cols-7 grid-rows-6 gap-2 bg-blue-800 p-7">
         {board.flat().map((_, index) => {
           const rowIndex = Math.floor(index / COLS);
           const colIndex = index % COLS;
