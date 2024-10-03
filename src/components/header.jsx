@@ -6,7 +6,7 @@ function Header({ onRestart }) {
       "Êtes-vous sûr de vouloir recommencer la partie ?"
     );
     if (confirmRestart) {
-      onRestart(); // Si l'utilisateur confirme, on appelle la fonction pour ouvrir la modale
+      onRestart(); // Si l'utilisateur confirme, on appelle la fonction pour réinitialiser le jeu
     }
   };
 
