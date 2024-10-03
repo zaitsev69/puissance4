@@ -10,7 +10,6 @@ import { useState } from "react";
 // /pages/index.js
 >>>>>>> 72d4ec3 (local game)
 
-import Board from '../components/board';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(true);
