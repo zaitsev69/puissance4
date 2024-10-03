@@ -6,8 +6,6 @@ import Board_bot from "@/components/board_bot";
 import Board from "@/components/board";
 import { useState } from "react";
 
-// /pages/index.js
-
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [playerColor, setPlayerColor] = useState("#ff0000"); // Couleur par défaut du joueur
