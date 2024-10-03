@@ -12,6 +12,8 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
   ];
 
   const [playerColor, setPlayerColor] = useState(colors[0].value);
+  const [playerTwoColor, setPlayerTwoColor] = useState(colors[1].value); // Nouveau state pour le joueur 2
+  const [gameMode, setGameMode] = useState("1player");
 
   const getRandomBotColor = () => {
     const availableColors = colors.filter(
@@ -22,8 +24,12 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
   };
 
   const startGame = () => {
-    const botColor = getRandomBotColor();
-    onGameStart(playerColor, botColor); // Passe la couleur choisie et la couleur du bot au parent
+    if (gameMode === "1player") {
+      const botColor = getRandomBotColor();
+      onGameStart(playerColor, botColor, "1player"); // Passe le mode de jeu, la couleur du joueur et du bot
+    } else {
+      onGameStart(playerColor, playerTwoColor, "2player"); // Mode deux joueurs, passe les couleurs des deux joueurs
+    }
     setIsModalOpen(false); // Ferme la modale
   };
 
@@ -34,9 +40,54 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
           <h2 className="text-center text-2xl font-semibold mb-4">
             Configurer le jeu
           </h2>
-          {/* Choix de la couleur */}
+          {/* Choix du mode de jeu */}
           <div className="mb-4">
-            <h3 className="text-lg font-medium mb-2">Couleur du joueur :</h3>
+            <h3 className="text-lg font-medium mb-2">Mode de jeu :</h3>
+            <div className="flex space-x-4 justify-center">
+              <label>
+                <input
+                  type="radio"
+                  name="game-mode"
+                  value="1player"
+                  checked={gameMode === "1player"}
+                  onChange={() => setGameMode("1player")}
+                  className="sr-only"
+                />
+                <div
+                  className={`px-4 py-2 rounded-md cursor-pointer ${
+                    gameMode === "1player"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  1 Joueur
+                </div>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="game-mode"
+                  value="2player"
+                  checked={gameMode === "2player"}
+                  onChange={() => setGameMode("2player")}
+                  className="sr-only"
+                />
+                <div
+                  className={`px-4 py-2 rounded-md cursor-pointer ${
+                    gameMode === "2player"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  2 Joueurs
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {/* Choix de la couleur du joueur 1 */}
+          <div className="mb-4">
+            <h3 className="text-lg font-medium mb-2">Couleur du joueur 1 :</h3>
             <div className="flex space-x-4 my-4 justify-center">
               {colors.map((color) => (
                 <label key={color.value}>
@@ -60,6 +111,40 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
               ))}
             </div>
           </div>
+
+          {/* Choix de la couleur du joueur 2 (visible seulement en mode 2 joueurs) */}
+          {gameMode === "2player" && (
+            <div className="mb-4">
+              <h3 className="text-lg font-medium mb-2">
+                Couleur du joueur 2 :
+              </h3>
+              <div className="flex space-x-4 my-4 justify-center">
+                {colors
+                  .filter((color) => color.value !== playerColor) // Ne pas permettre au joueur 2 de choisir la même couleur que le joueur 1
+                  .map((color) => (
+                    <label key={color.value}>
+                      <input
+                        type="radio"
+                        name="player-two-color"
+                        value={color.value}
+                        checked={playerTwoColor === color.value}
+                        onChange={() => setPlayerTwoColor(color.value)}
+                        className="sr-only"
+                      />
+                      <div
+                        className={`w-10 h-10 rounded-full border-2 cursor-pointer ${
+                          playerTwoColor === color.value
+                            ? "border-black"
+                            : "border-transparent"
+                        }`}
+                        style={{ backgroundColor: color.value }}
+                      />
+                    </label>
+                  ))}
+              </div>
+            </div>
+          )}
+
           {/* Bouton jouer */}
           <div className="text-center">
             <button
