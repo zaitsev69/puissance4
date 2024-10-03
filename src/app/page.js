@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import Header from "@/components/header";
@@ -6,10 +5,8 @@ import GameSetupModal from "@/components/modal";
 import Board_bot from "@/components/board_bot";
 import Board from "@/components/board";
 import { useState } from "react";
-=======
-// /pages/index.js
->>>>>>> 72d4ec3 (local game)
 
+// /pages/index.js
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -42,7 +39,6 @@ export default function Home() {
   };
 
   return (
-<<<<<<< HEAD
     <div>
       <Header onRestart={resetGame} />
       <GameSetupModal

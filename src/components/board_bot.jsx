@@ -1,13 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
 
-import React, { useState } from 'react';
+import { useState, useEffect } from "react";
 
 const ROWS = 6;
 const COLS = 7;
 
-  const [currentPlayer, setCurrentPlayer] = useState('R');
-  const initialGrid = Array(ROWS).fill(null).map(() => Array(COLS).fill(null));
 const createBoard = () => {
   return Array(ROWS)
     .fill(null)
@@ -22,6 +19,7 @@ const checkWinner = (board, player) => {
     { x: 1, y: -1 }, // diagonale bas-gauche
   ];
 
+  const inBounds = (x, y) => x >= 0 && x < ROWS && y >= 0 && y < COLS;
 
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
@@ -52,14 +50,13 @@ export default function Board_bot({ playerColor, botColor }) {
 
   const dropPiece = (col) => {
     if (winner) return;
-
+    const newBoard = [...board];
     for (let row = ROWS - 1; row >= 0; row--) {
-      if (!grid[row][colIndex]) {
-        const newGrid = [...grid];
-        newGrid[row][colIndex] = currentPlayer;
-        setGrid(newGrid);
+      if (!newBoard[row][col]) {
+        newBoard[row][col] = currentPlayer;
+        setBoard(newBoard);
 
-        if (checkWin(newGrid, row, colIndex, currentPlayer)) {
+        if (checkWinner(newBoard, currentPlayer)) {
           setWinner(currentPlayer);
         } else {
           setCurrentPlayer(currentPlayer === "Human" ? "Bot" : "Human");
@@ -78,8 +75,7 @@ export default function Board_bot({ playerColor, botColor }) {
         availableCols[Math.floor(Math.random() * availableCols.length)];
       dropPiece(randomCol);
     }
-    return false;
-  };
+  }, [currentPlayer, board, winner]);
 
   const renderCell = (row, col) => {
     const value = board[row][col];
