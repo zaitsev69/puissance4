@@ -5,12 +5,12 @@ import React, { useState } from "react";
 const ROWS = 6;
 const COLS = 7;
 
-const Board = () => {
+const Board = ({ playerColor = "#ff0000", playerTwoColor = "#ffff00" }) => {
   const initialGrid = Array(ROWS)
     .fill(null)
     .map(() => Array(COLS).fill(null));
   const [grid, setGrid] = useState(initialGrid);
-  const [currentPlayer, setCurrentPlayer] = useState("R");
+  const [currentPlayer, setCurrentPlayer] = useState("P1"); // P1 pour le joueur 1, P2 pour le joueur 2
   const [winner, setWinner] = useState(null);
   const [winningPositions, setWinningPositions] = useState([]);
 
@@ -28,7 +28,7 @@ const Board = () => {
           setWinner(currentPlayer);
           setWinningPositions(winResult);
         } else {
-          setCurrentPlayer(currentPlayer === "R" ? "Y" : "R");
+          setCurrentPlayer(currentPlayer === "P1" ? "P2" : "P1");
         }
         break;
       }
@@ -37,10 +37,10 @@ const Board = () => {
 
   const checkWin = (grid, row, col, player) => {
     return (
-      checkDirection(grid, row, col, player, 1, 0) ||
-      checkDirection(grid, row, col, player, 0, 1) ||
-      checkDirection(grid, row, col, player, 1, 1) ||
-      checkDirection(grid, row, col, player, 1, -1)
+      checkDirection(grid, row, col, player, 1, 0) || // Horizontal
+      checkDirection(grid, row, col, player, 0, 1) || // Vertical
+      checkDirection(grid, row, col, player, 1, 1) || // Diagonal droite-bas
+      checkDirection(grid, row, col, player, 1, -1) // Diagonal gauche-bas
     );
   };
 
@@ -71,7 +71,7 @@ const Board = () => {
 
   const resetGame = () => {
     setGrid(initialGrid);
-    setCurrentPlayer("R");
+    setCurrentPlayer("P1");
     setWinner(null);
     setWinningPositions([]);
   };
@@ -82,11 +82,22 @@ const Board = () => {
     );
   };
 
+  const getPlayerColor = (player) => {
+    return player === "P1" ? playerColor : playerTwoColor;
+  };
+
   return (
     <div className="flex flex-col items-center space-y-4">
       <h1 className="text-2xl font-bold">Puissance 4</h1>
       <div className="text-lg">
-        Au tour de : {currentPlayer === "R" ? "Rouge" : "Jaune"}
+        Au tour de :{" "}
+        <span
+          style={{
+            color: currentPlayer === "P1" ? playerColor : playerTwoColor,
+          }}
+        >
+          {currentPlayer === "P1" ? "Joueur 1" : "Joueur 2"}
+        </span>
       </div>
       <div className="grid grid-cols-7 gap-1">
         {grid.map((row, rowIndex) =>
@@ -99,13 +110,15 @@ const Board = () => {
               <div
                 className={`w-20 h-20 rounded-full ${
                   isWinningPosition(rowIndex, colIndex) ? "shake" : ""
-                } ${
-                  cell === "R"
-                    ? "bg-red-500"
-                    : cell === "Y"
-                    ? "bg-yellow-500"
-                    : "bg-white"
                 }`}
+                style={{
+                  backgroundColor:
+                    cell === "P1"
+                      ? playerColor
+                      : cell === "P2"
+                      ? playerTwoColor
+                      : "white",
+                }}
               />
             </div>
           ))
@@ -114,7 +127,11 @@ const Board = () => {
 
       {winner && (
         <div className="mt-4 text-xl">
-          Joueur {winner === "R" ? "Rouge" : "Jaune"} a gagné !
+          Joueur{" "}
+          <span style={{ color: getPlayerColor(winner) }}>
+            {winner === "P1" ? "1" : "2"}
+          </span>{" "}
+          a gagné !
         </div>
       )}
 
