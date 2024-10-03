@@ -5,7 +5,10 @@ import React, { useState } from "react";
 const ROWS = 6;
 const COLS = 7;
 
-const Board = ({ playerColor = "#ff0000", playerTwoColor = "#ffff00" }) => {
+const Board_local = ({
+  playerColor = "#ff0000",
+  playerTwoColor = "#ffff00",
+}) => {
   const initialGrid = Array(ROWS)
     .fill(null)
     .map(() => Array(COLS).fill(null));
@@ -145,4 +148,4 @@ const Board = ({ playerColor = "#ff0000", playerTwoColor = "#ffff00" }) => {
   );
 };
 
-export default Board;
+export default Board_local;

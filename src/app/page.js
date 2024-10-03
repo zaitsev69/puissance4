@@ -3,7 +3,7 @@
 import Header from "@/components/header";
 import GameSetupModal from "@/components/modal";
 import Board_bot from "@/components/board_bot";
-import Board from "@/components/board";
+import Board_local from "@/components/board_local";
 import { useState } from "react";
 
 export default function Home() {
@@ -47,7 +47,7 @@ export default function Home() {
       {gameMode === "1player" ? (
         <Board_bot key={key} playerColor={playerColor} botColor={botColor} />
       ) : (
-        <Board
+        <Board_local
           key={key}
           playerColor={playerColor}
           playerTwoColor={playerTwoColor}
