@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import GameSetupModal from "@/components/modal";
 import Board_bot from "@/components/board_bot";
 import Board_local from "@/components/board_local";
+import Board_multiplayer from "@/components/multi"; // Composant multijoueur
 import { useState } from "react";
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
   const [playerColor, setPlayerColor] = useState("#ff0000"); // Couleur par défaut du joueur
   const [playerTwoColor, setPlayerTwoColor] = useState("#00ff00"); // Couleur par défaut du joueur 2
   const [botColor, setBotColor] = useState("#ffff00"); // Couleur par défaut du bot
-  const [key, setKey] = useState(0); // Clé pour forcer la réinitialisation du board
+  const [gameState, setGameState] = useState(null); // État de la partie
   const [gameMode, setGameMode] = useState("1player"); // Mode de jeu par défaut
 
   // Fonction appelée lors du démarrage du jeu
@@ -23,17 +24,17 @@ export default function Home() {
     setPlayerColor(chosenPlayerColor);
     if (chosenGameMode === "1player") {
       setBotColor(chosenOpponentColor); // Si c'est un bot, on met la couleur du bot
-    } else {
+    } else if (chosenGameMode === "2player") {
       setPlayerTwoColor(chosenOpponentColor); // Si c'est deux joueurs, on met la couleur du joueur 2
     }
     setGameMode(chosenGameMode); // Enregistre le mode de jeu choisi
     setIsModalOpen(false); // Fermer la modale
   };
 
-  // Fonction pour réinitialiser la partie
+  // Fonction pour réinitialiser la partie sans déconnecter
   const resetGame = () => {
-    setKey((prevKey) => prevKey + 1); // Change la clé pour forcer la réinitialisation du Board
-    setIsModalOpen(true); // Réouvrir la modale
+    setGameState(null); // Réinitialiser uniquement l'état du jeu
+    setIsModalOpen(true); // Réouvrir la modale pour une nouvelle configuration
   };
 
   return (
@@ -44,15 +45,23 @@ export default function Home() {
         setIsModalOpen={setIsModalOpen}
         onGameStart={handleGameStart}
       />
+
+      {/* Montre le composant correct selon le mode de jeu */}
       {gameMode === "1player" ? (
-        <Board_bot key={key} playerColor={playerColor} botColor={botColor} />
-      ) : (
+        <Board_bot
+          key={gameState}
+          playerColor={playerColor}
+          botColor={botColor}
+        />
+      ) : gameMode === "2player" ? (
         <Board_local
-          key={key}
+          key={gameState}
           playerColor={playerColor}
           playerTwoColor={playerTwoColor}
         />
-      )}
+      ) : gameMode === "multiplayer" ? (
+        <Board_multiplayer key={gameState} playerColor={playerColor} />
+      ) : null}
     </div>
   );
 }
