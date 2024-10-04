@@ -27,7 +27,7 @@ const Board_multiplayer = ({
   const [messageInput, setMessageInput] = useState("");
 
   useEffect(() => {
-    const socketInstance = io("https://backp4.onrender.com/", {
+    const socketInstance = io("https://backp4.onrender.com", {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
