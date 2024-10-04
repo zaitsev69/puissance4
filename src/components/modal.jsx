@@ -81,7 +81,7 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
                       : "bg-gray-200"
                   }`}
                 >
-                  2 Joueurs
+                  1 vs 1 local
                 </div>
               </label>
               <label>

@@ -3,7 +3,7 @@ import React from "react";
 function Header({ onRestart }) {
   const handleRestartClick = () => {
     const confirmRestart = window.confirm(
-      "Êtes-vous sûr de vouloir recommencer la partie ?"
+      "Êtes-vous sûr de vouloir continuer ? Vous allez perdre votre partie en cours."
     );
     if (confirmRestart) {
       onRestart(); // Si l'utilisateur confirme, on appelle la fonction pour réinitialiser le jeu
@@ -21,7 +21,7 @@ function Header({ onRestart }) {
         onClick={handleRestartClick}
         className="bg-white border border-black text-black px-4 py-2 rounded shadow-md uppercase"
       >
-        Restart
+        Menu
       </button>
     </div>
   );

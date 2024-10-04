@@ -205,13 +205,6 @@ const Board_local = ({
         </div>
       )}
  
-      <button
-        onClick={resetGame}
-        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded"
-      >
-        Réinitialiser le jeu
-      </button>
- 
       {/* Conteneur des feux d'artifice */}
       <div
         ref={fireworksContainerRef}
