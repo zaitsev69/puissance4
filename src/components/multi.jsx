@@ -113,16 +113,16 @@ const Board_multiplayer = ({
         </span>
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 bg-blue-800 p-7">
         {grid.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
               onClick={() => handleColumnClick(colIndex)}
-              className="w-24 h-24 bg-blue-500 flex items-center justify-center cursor-pointer"
+              className="w-20 h-20 flex items-center justify-center cursor-pointer"
             >
               <div
-                className={`w-20 h-20 rounded-full ${
+                className={`w-16 h-16 rounded-full ${
                   winningPositions.some(
                     ([winRow, winCol]) =>
                       winRow === rowIndex && winCol === colIndex

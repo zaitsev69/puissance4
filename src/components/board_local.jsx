@@ -156,25 +156,25 @@ const Board_local = ({
           {currentPlayer === "P1" ? "Joueur 1" : "Joueur 2"}
         </span>
       </div>
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 grid-rows-6 gap-2 bg-blue-800 p-7">
         {grid.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
               onClick={() => handleColumnClick(colIndex)}
-              className="w-24 h-24 bg-blue-500 flex items-center justify-center cursor-pointer relative"
+              className="w-20 h-20 bg-blue-800 flex items-center justify-center cursor-pointer relative"
             >
               {/* Afficher le jeton uniquement si l'animation est terminée */}
               {fallingToken.col === colIndex && fallingToken.row === rowIndex ? (
                 <div
-                  className={`w-20 h-20 rounded-full animate-[fall_0.5s_ease-in-out]`}
+                  className={`w-16 h-16 rounded-full animate-[fall_0.5s_ease-in-out]`}
                   style={{
                     backgroundColor: getPlayerColor(fallingToken.player),
                   }}
                 />
               ) : (
                 <div
-                  className={`w-20 h-20 rounded-full transition-transform duration-500 ${
+                  className={`w-16 h-16 rounded-full transition-transform duration-500 ${
                     isWinningPosition(rowIndex, colIndex) ? "shake" : ""
                   }`}
                   style={{
