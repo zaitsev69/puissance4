@@ -12,7 +12,7 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
   ];
 
   const [playerColor, setPlayerColor] = useState(colors[0].value);
-  const [playerTwoColor, setPlayerTwoColor] = useState(colors[1].value); // Nouveau state pour le joueur 2
+  const [playerTwoColor, setPlayerTwoColor] = useState(colors[1].value);
   const [gameMode, setGameMode] = useState("1player");
 
   const getRandomBotColor = () => {
@@ -26,9 +26,11 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
   const startGame = () => {
     if (gameMode === "1player") {
       const botColor = getRandomBotColor();
-      onGameStart(playerColor, botColor, "1player"); // Passe le mode de jeu, la couleur du joueur et du bot
-    } else {
-      onGameStart(playerColor, playerTwoColor, "2player"); // Mode deux joueurs, passe les couleurs des deux joueurs
+      onGameStart(playerColor, botColor, "1player");
+    } else if (gameMode === "2player") {
+      onGameStart(playerColor, playerTwoColor, "2player");
+    } else if (gameMode === "multiplayer") {
+      onGameStart(playerColor, null, "multiplayer"); // Passe au mode multijoueur
     }
     setIsModalOpen(false); // Ferme la modale
   };
@@ -36,7 +38,7 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
   return (
     isModalOpen && (
       <div className="fixed inset-0 bg-gray-300 bg-opacity-50 flex justify-center items-center z-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div className="bg-white p-6 rounded-lg shadow-xl w-105">
           <h2 className="text-center text-2xl font-semibold mb-4">
             Configurer le jeu
           </h2>
@@ -80,6 +82,25 @@ const GameSetupModal = ({ isModalOpen, setIsModalOpen, onGameStart }) => {
                   }`}
                 >
                   2 Joueurs
+                </div>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="game-mode"
+                  value="multiplayer"
+                  checked={gameMode === "multiplayer"}
+                  onChange={() => setGameMode("multiplayer")}
+                  className="sr-only"
+                />
+                <div
+                  className={`px-4 py-2 rounded-md cursor-pointer ${
+                    gameMode === "multiplayer"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  Multijoueur
                 </div>
               </label>
             </div>
