@@ -90,25 +90,26 @@ const Board_local = ({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <h1 className="text-2xl font-bold">Puissance 4</h1>
+    <div className="flex flex-col items-center space-y-4 mt-10">
+      <h1 className="text-4xl font-bold">Puissance 4</h1>
       <div className="text-lg">
         Au tour de :{" "}
         <span
           style={{
             color: currentPlayer === "P1" ? playerColor : playerTwoColor,
+            fontWeight: 'bold',
           }}
         >
           {currentPlayer === "P1" ? "Joueur 1" : "Joueur 2"}
         </span>
       </div>
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 bg-blue-800 p-7">
         {grid.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
               onClick={() => handleColumnClick(colIndex)}
-              className="w-24 h-24 bg-blue-500 flex items-center justify-center cursor-pointer"
+              className="w-24 h-24 flex items-center justify-center cursor-pointer"
             >
               <div
                 className={`w-20 h-20 rounded-full ${
@@ -138,12 +139,6 @@ const Board_local = ({
         </div>
       )}
 
-      <button
-        onClick={resetGame}
-        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded"
-      >
-        Réinitialiser le jeu
-      </button>
     </div>
   );
 };

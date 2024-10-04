@@ -45,9 +45,9 @@ const checkWinner = (board, player) => {
 
 export default function Board_bot({ playerColor, botColor }) {
   const [board, setBoard] = useState(createBoard());
-  const [currentPlayer, setCurrentPlayer] = useState("Human");
+  const [currentPlayer, setCurrentPlayer] = useState("Vous");
   const [winner, setWinner] = useState(null);
-
+ 
   const dropPiece = (col) => {
     if (winner) return;
     const newBoard = [...board];
@@ -59,7 +59,7 @@ export default function Board_bot({ playerColor, botColor }) {
         if (checkWinner(newBoard, currentPlayer)) {
           setWinner(currentPlayer);
         } else {
-          setCurrentPlayer(currentPlayer === "Human" ? "Bot" : "Human");
+          setCurrentPlayer(currentPlayer === "Vous" ? "Bot" : "Vous");
         }
         break;
       }
@@ -82,30 +82,30 @@ export default function Board_bot({ playerColor, botColor }) {
     return (
       <div
         key={col}
-        className={`w-20 h-20  rounded-full flex justify-center items-center cursor-pointer`}
+        className={`w-20 h-20 rounded-full flex justify-center items-center cursor-pointer m-[5px]`}
         style={{
           backgroundColor:
-            value === "Human"
+            value === "Vous"
               ? playerColor
               : value === "Bot"
               ? botColor
               : "white",
         }}
-        onClick={() => currentPlayer === "Human" && dropPiece(col)}
+        onClick={() => currentPlayer === "Vous" && dropPiece(col)}
       />
     );
   };
 
   return (
     <div className="flex flex-col items-center mt-10">
-      <h1 className="text-4xl font-bold mb-6">Puissance 4</h1>
+      <h1 className="text-4xl font-bold mb-3">Puissance 4</h1>
       {winner ? (
         <h2 className="text-2xl font-semibold mb-4 text-green-600">
-          {winner} wins!
+          {winner} avez gagné !
         </h2>
       ) : (
         <h2 className="text-xl mb-4">
-          Current Player: <span className="font-bold">{currentPlayer}</span>
+          Au tour de : <span className="font-bold">{currentPlayer}</span>
         </h2>
       )}
       <div className="grid grid-cols-7 grid-rows-6 gap-2 bg-blue-800 p-7">
