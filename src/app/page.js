@@ -2,19 +2,31 @@
 
 import Header from "@/components/header";
 import GameSetupModal from "@/components/modal";
-import Board_boat from "@/components/board_bot";
+import Board_bot from "@/components/board_bot";
+import Board_local from "@/components/board_local";
 import { useState } from "react";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [playerColor, setPlayerColor] = useState("#ff0000"); // Couleur par défaut du joueur
+  const [playerTwoColor, setPlayerTwoColor] = useState("#00ff00"); // Couleur par défaut du joueur 2
   const [botColor, setBotColor] = useState("#ffff00"); // Couleur par défaut du bot
   const [key, setKey] = useState(0); // Clé pour forcer la réinitialisation du board
+  const [gameMode, setGameMode] = useState("1player"); // Mode de jeu par défaut
 
   // Fonction appelée lors du démarrage du jeu
-  const handleGameStart = (chosenPlayerColor, chosenBotColor) => {
+  const handleGameStart = (
+    chosenPlayerColor,
+    chosenOpponentColor,
+    chosenGameMode
+  ) => {
     setPlayerColor(chosenPlayerColor);
-    setBotColor(chosenBotColor);
+    if (chosenGameMode === "1player") {
+      setBotColor(chosenOpponentColor); // Si c'est un bot, on met la couleur du bot
+    } else {
+      setPlayerTwoColor(chosenOpponentColor); // Si c'est deux joueurs, on met la couleur du joueur 2
+    }
+    setGameMode(chosenGameMode); // Enregistre le mode de jeu choisi
     setIsModalOpen(false); // Fermer la modale
   };
 
@@ -32,7 +44,15 @@ export default function Home() {
         setIsModalOpen={setIsModalOpen}
         onGameStart={handleGameStart}
       />
-      <Board_boat key={key} playerColor={playerColor} botColor={botColor} />
+      {gameMode === "1player" ? (
+        <Board_bot key={key} playerColor={playerColor} botColor={botColor} />
+      ) : (
+        <Board_local
+          key={key}
+          playerColor={playerColor}
+          playerTwoColor={playerTwoColor}
+        />
+      )}
     </div>
   );
 }
