@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "fireworks-js": "^2.10.8",
     "next": "^14.2.14",
     "react": "^18",
     "react-dom": "^18",
